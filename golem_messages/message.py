@@ -1358,6 +1358,27 @@ class VerdictReportComputedTask(Message):
         return deserialize_task_to_compute(key, value)
 
 
+class FileTransferToken(Message):
+    TYPE = CONCENT_MSG_BASE + 5
+
+    __slots__ = [
+        'token_expiration_deadline',
+        'storage_cluster_address',
+        'authorized_client_public_key',
+        'operation',
+        'files_data',
+    ] + Message.__slots__
+
+
+class TokenFilesData(datastructures.FrozenDict):
+    """Represents SUBTASK metadata."""
+    ITEMS = {
+        'filepath'  :'',
+        'md5_hashes':'',
+        'size'      :0,
+    }
+
+
 def init_messages():
     """Add supported messages to register messages list"""
     if registered_message_types:
@@ -1427,6 +1448,7 @@ def init_messages():
             AckReportComputedTask,
             RejectReportComputedTask,
             VerdictReportComputedTask,
+            FileTransferToken,
             ):
         if message_class.TYPE in registered_message_types:
             raise RuntimeError(
