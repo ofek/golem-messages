@@ -1366,16 +1366,16 @@ class FileTransferToken(Message):
         'storage_cluster_address',
         'authorized_client_public_key',
         'operation',
-        'files_data',
+        'files',
     ] + Message.__slots__
 
 
 class TokenFilesData(datastructures.FrozenDict):
     """Represents SUBTASK metadata."""
     ITEMS = {
-        'filepath'  :'',
-        'md5_hashes':'',
-        'size'      :0,
+        'path'    :'',
+        'checksum':'',
+        'size'    :0,
     }
 
 
